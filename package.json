@@ -1,78 +1,45 @@
 {
-  "name": "@coreui/react",
-  "version": "4.0.0-beta.3",
-  "description": "",
-  "license": "MIT",
-  "main": "dist/index.js",
-  "module": "dist/index.es.js",
-  "jsnext:main": "dist/index.es.js",
-  "files": [
-    "dist/",
-    "src/",
-    "doczrc.js",
-    "tsconfig.json",
-    "package.json"
+  "private": true,
+  "workspaces": [
+    "packages/*"
   ],
   "scripts": {
-    "build": "rollup -c",
-    "docs:dev": "docz dev",
-    "docs:build": "docz build",
-    "lint": "eslint \"src/components/**/*.{js,ts,tsx}\"",
-    "test": "jest --coverage",
-    "test:update": "jest --coverage --updateSnapshot"
-  },
-  "peerDependencies": {
-    "@coreui/coreui": "^4.0.0",
-    "react": "^17",
-    "react-dom": "^17",
-    "react-router-dom": "^5.2.0"
+    "charts:build": "lerna run --scope \"@coreui/react-chartjs\" build --stream",
+    "charts:test": "lerna run --scope \"@coreui/react-chartjs\" test --stream",
+    "charts:test:update": "lerna run --scope \"@coreui/react-chartjs\" test:update --stream",
+    "docs:api": "lerna run --scope \"@coreui/react-docs\" api --stream",
+    "docs:dev": "lerna run --scope \"@coreui/react-docs\" develop --stream",
+    "docs:build": "lerna run --scope \"@coreui/react-docs\" build --stream",
+    "docs:clean": "lerna run --scope \"@coreui/react-docs\" clean",
+    "icons:build": "lerna run --scope \"@coreui/icons-react\" build --stream",
+    "icons:test": "lerna run --scope \"@coreui/icons-react\" test --stream",
+    "icons:test:update": "lerna run --scope \"@coreui/icons-react\" test:update --stream",
+    "lib:build": "lerna run --scope \"@coreui/react\" build --stream",
+    "lib:test": "lerna run --scope \"@coreui/react\" test --stream",
+    "lib:test:update": "lerna run --scope \"@coreui/react\" test:update --stream",
+    "lint": "eslint \"packages/**/src/**/*.{js,ts,tsx}\"",
+    "test": "npm-run-all charts:test icons:test lib:test",
+    "test:update": "npm-run-all charts:test:update icons:test:update lib:test:update"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.6",
-    "@babel/preset-env": "^7.14.7",
-    "@babel/preset-react": "^7.14.5",
-    "@emotion/react": "^11.4.0",
-    "@emotion/styled": "^11.3.0",
-    "@popperjs/core": "^2.9.2",
-    "@rollup/plugin-commonjs": "^19.0.0",
-    "@rollup/plugin-node-resolve": "^13.0.0",
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^12.0.0",
-    "@types/react": "^17.0.13",
-    "@types/react-dom": "^17.0.8",
-    "@types/react-transition-group": "^4.4.1",
-    "@typescript-eslint/eslint-plugin": "^4.28.1",
-    "@typescript-eslint/parser": "^4.28.1",
-    "classnames": "^2.3.1",
-    "docz": "^2.3.1",
-    "eslint": "^7.29.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-jsdoc": "^35.4.1",
-    "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-react": "^7.24.0",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "gatsby-plugin-google-gtag": "2",
-    "gatsby-plugin-sass": "3",
-    "gatsby-plugin-sitemap": "2",
-    "jest": "^27.0.6",
-    "node-sass": "6",
-    "prettier": "^2.3.2",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-helmet": "^6.1.0",
-    "react-popper": "^2.2.5",
-    "react-transition-group": "^4.4.2",
-    "rollup": "^2.52.7",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-typescript2": "^0.30.0",
-    "ts-jest": "^27.0.3",
-    "typescript": "^4.3.5"
+    "@typescript-eslint/eslint-plugin": "^5.61.0",
+    "@typescript-eslint/parser": "^5.61.0",
+    "eslint": "8.44.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-unicorn": "^47.0.0",
+    "lerna": "^7.1.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.0.0"
   },
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "jsdom",
-    "testPathIgnorePatterns": [
-      "dist/"
-    ]
+  "overrides": {
+    "gatsby-remark-external-links": {
+      "unist-util-find": "1.0.2"
+    }
+  },
+  "resolutions": {
+    "**/gatsby-remark-external-links/unist-util-find": "1.0.2"
   }
 }

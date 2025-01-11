@@ -1,25 +1,72 @@
+/**
+ * Copyright (c) 2013-present, creativeLabs Lukasz Holeczek.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+'use strict'
+
 module.exports = {
-  parser: '@typescript-eslint/parser', // Specifies the ESLint parser
-  parserOptions: {
-    ecmaVersion: 2020, // Allows for the parsing of modern ECMAScript features
-    sourceType: 'module', // Allows for the use of imports
-    ecmaFeatures: {
-      jsx: true, // Allows for the parsing of JSX
-    },
-  },
-  settings: {
-    react: {
-      version: 'detect', // Tells eslint-plugin-react to automatically detect the version of React to use
-    },
+  root: true, // So parent files don't get applied
+  env: {
+    es6: true,
+    browser: true,
+    node: true,
   },
   extends: [
-    'plugin:react/recommended', // Uses the recommended rules from @eslint-plugin-react
-    'plugin:@typescript-eslint/recommended', // Uses the recommended rules from the @typescript-eslint/eslint-plugin
-    'plugin:prettier/recommended', // Enables eslint-plugin-prettier and eslint-config-prettier. This will display prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
+    'plugin:react/recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+    'plugin:unicorn/recommended',
   ],
-  plugins: ['jsdoc', '@typescript-eslint', 'react', 'react-hooks'],
-  rules: {
-    // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
-    // e.g. "@typescript-eslint/explicit-function-return-type": "off",
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 2020,
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
+    },
   },
+  plugins: ['@typescript-eslint', 'react', 'react-hooks'],
+  settings: {
+    react: {
+      pragma: 'React',
+      version: 'detect',
+    },
+  },
+  rules: {
+    'unicorn/filename-case': 'off',
+    'unicorn/no-array-for-each': 'off',
+    'unicorn/no-null': 'off',
+    'unicorn/prefer-dom-node-append': 'off',
+    'unicorn/prefer-export-from': 'off',
+    'unicorn/prefer-query-selector': 'off',
+    'unicorn/prevent-abbreviations': 'off',
+  },
+  overrides: [
+    {
+      files: ['packages/docs/build/**'],
+      env: {
+        browser: false,
+        node: true,
+      },
+      parserOptions: {
+        sourceType: 'script',
+      },
+      rules: {
+        '@typescript-eslint/no-var-requires': 'off',
+        'no-console': 'off',
+        'unicorn/prefer-module': 'off',
+        'unicorn/prefer-top-level-await': 'off',
+      },
+    },
+    {
+      files: ['packages/docs/**'],
+      rules: {
+        '@typescript-eslint/no-var-requires': 'off',
+        'unicorn/prefer-module': 'off',
+      },
+    },
+  ],
 }
